@@ -1,3 +1,5 @@
+import { range } from './overloading';
+
 // #1 Optional Chaining
 // #2 Nullish Coalescing
 
@@ -28,3 +30,27 @@ const json2 = serializeJSON(user, { formatting: { indent: 0 } });
 console.log(json);
 console.log(json1);
 console.log(json2);
+
+// #3 Any, Unknown type
+
+let value: any;
+value = true;
+value = 12;
+value = Array.prototype.map;
+value = null;
+value = undefined;
+
+// It's ok in typescript but has a runtime error
+// value.prop.prop.prop;
+
+let anotherValue: unknown;
+anotherValue = false;
+anotherValue = 11;
+
+// It's not ok in typescript
+// anotherValue.prop.prop;
+if (typeof anotherValue === 'number') {
+  console.log(anotherValue.toFixed(2));
+}
+
+console.log(range(0, 6));
