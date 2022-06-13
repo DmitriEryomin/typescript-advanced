@@ -1,4 +1,6 @@
 import { range } from './overloading';
+import { assertIsNotNull } from './assertions';
+import { intersperse, swap } from './readonlyArrayTuples';
 
 // #1 Optional Chaining
 // #2 Nullish Coalescing
@@ -54,3 +56,34 @@ if (typeof anotherValue === 'number') {
 }
 
 console.log(range(0, 6));
+
+// #4 assertions
+function randomNullishValue(): number | null {
+  return Math.random() < 0.9 ? Date.now() : null;
+}
+
+const maybeNullValue = randomNullishValue();
+try {
+  assertIsNotNull(maybeNullValue, 'Value is null');
+} catch (error) {}
+
+// is not null
+console.log(maybeNullValue);
+
+// #5 readonly arrays and tuples
+const arr = [1, 2, 3] as const;
+const newArr = intersperse(arr, 0.1);
+console.log(newArr);
+
+const arr1: readonly string[] = ['a', 'b', 'c'];
+const newArr1 = intersperse(arr1, 'z');
+console.log(newArr1);
+
+// Error Argument of type '(string | number)[]' is not assignable to parameter of type '[string | number, string | number]'.
+// const keyValue = ['age', 27];
+// const keyValue = ['age', 27] as const;
+
+const keyValue: readonly [string, number] = ['age', 27];
+const valueKey = swap(keyValue);
+console.log(keyValue);
+console.log(valueKey);
