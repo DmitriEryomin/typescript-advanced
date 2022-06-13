@@ -57,7 +57,7 @@ if (typeof anotherValue === 'number') {
 
 console.log(range(0, 6));
 
-// #4 assertions
+// #4 Assertions
 function randomNullishValue(): number | null {
   return Math.random() < 0.9 ? Date.now() : null;
 }
@@ -70,7 +70,7 @@ try {
 // is not null
 console.log(maybeNullValue);
 
-// #5 readonly arrays and tuples
+// #5 Readonly arrays and tuples
 const arr = [1, 2, 3] as const;
 const newArr = intersperse(arr, 0.1);
 console.log(newArr);
@@ -87,3 +87,25 @@ const keyValue: readonly [string, number] = ['age', 27];
 const valueKey = swap(keyValue);
 console.log(keyValue);
 console.log(valueKey);
+
+// #6 Conditional types
+// T extends U ? X : Y
+type NotNumber<T> = T extends number ? never : T;
+type PromiseOrPrimitive<T> = T extends Promise<T> ? Promise<T> : T;
+
+type A = NotNumber<string>;
+type B = NotNumber<string | number>;
+type C = NotNumber<2>;
+type D = NotNumber<number>;
+
+type E = PromiseOrPrimitive<Promise<string>>;
+type F = PromiseOrPrimitive<string>;
+
+// #7 Literal types
+type Dimensions = 'block' | 'inline';
+type Direction = 'start' | 'end';
+type MarginProperty = `margin-${Dimensions}-${Direction}`;
+type MarginUnit = 'px' | 'vh' | 'vw';
+type MarginValue = `${number}${MarginUnit}`;
+type MarginDeclaration = [MarginProperty, MarginValue];
+const margin: MarginDeclaration = ['margin-block-start', '10px'];
