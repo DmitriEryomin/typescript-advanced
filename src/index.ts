@@ -1,5 +1,6 @@
 import { range } from './overloading';
 import { assertIsNotNull } from './assertions';
+import { createGetterObject } from './mappedAndLiteral';
 import { intersperse, swap } from './readonlyArrayTuples';
 
 // #1 Optional Chaining
@@ -109,3 +110,13 @@ type MarginUnit = 'px' | 'vh' | 'vw';
 type MarginValue = `${number}${MarginUnit}`;
 type MarginDeclaration = [MarginProperty, MarginValue];
 const margin: MarginDeclaration = ['margin-block-start', '10px'];
+
+// #8 Mapped and Literal types
+const user1 = createGetterObject({
+  name: 'Dmitri',
+  email: 'dmitri.eryomin@gmail.com',
+});
+
+console.log(user1);
+console.log(user1.getName());
+console.log(user1.getEmail());
