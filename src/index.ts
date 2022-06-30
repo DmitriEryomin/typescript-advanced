@@ -1,5 +1,5 @@
 import { range } from './overloading';
-import { assertIsNotNull } from './assertions';
+import { assertIsNotNull, isFlat } from './assertions';
 import { createGetterObject } from './mappedAndLiteral';
 import { intersperse, swap } from './readonlyArrayTuples';
 
@@ -70,6 +70,12 @@ try {
 
 // is not null
 console.log(maybeNullValue);
+
+const numbers = [1, 2, 3, [4], [5, 6], 7, 8];
+if (isFlat(numbers)) {
+  console.log(numbers);
+  console.log('numbers is flat');
+}
 
 // #5 Readonly arrays and tuples
 const arr = [1, 2, 3] as const;

@@ -18,3 +18,7 @@ export function assertIsNotNull<T>(
     throw new Error(message);
   }
 }
+
+export function isFlat<T>(array: (T | T[])[]): array is T[] {
+  return array.some(Array.isArray);
+}
